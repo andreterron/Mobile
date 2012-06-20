@@ -264,7 +264,7 @@ public class BusFinderActivity extends MapActivity implements
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 		  public void run() {
 				ServerOperations.updateBusPositions(getApplicationContext(), map);	
-				map.invalidate();
+				//map.invalidate();
 		  }
 		}, 0, 60, TimeUnit.SECONDS);
 

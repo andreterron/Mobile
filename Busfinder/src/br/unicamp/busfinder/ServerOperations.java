@@ -252,7 +252,7 @@ public class ServerOperations {
 
 	public static void updateBusPositions(Context c, MapView map) {
 
-		Log.d("Updating Bus Posisionts","");
+		Log.d("Updating Bus Posisionts ...","");
 		
 		String req = BusFinderActivity.SERVER + "getBusesPositions";
 		JSONArray jar = getJSON(req);
@@ -278,7 +278,7 @@ public class ServerOperations {
 			BusFinderActivity.realBus.insertPinpoint(new PItem(gP2, "bus2",
 					placa2));
 
-			// map.invalidate();
+			 //BusFinderActivity.map.invalidate();
 			// map.getController().animateTo(gP2);
 
 		} catch (Exception e) {
