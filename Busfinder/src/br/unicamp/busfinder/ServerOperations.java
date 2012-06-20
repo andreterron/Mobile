@@ -118,7 +118,6 @@ public class ServerOperations {
 
 			int source = Integer.parseInt(obj.getString("source"));
 			int dest = Integer.parseInt(obj.getString("dest"));
-			String action = obj.getString("action");
 			String departure = obj.getString("departure");
 			String arrival = obj.getString("arrival");
 			String circular = obj.getString("circular");
@@ -126,7 +125,7 @@ public class ServerOperations {
 			int distSource = obj.getInt("dist_source");
 			int distDest = obj.getInt("dist_dest");
 			String finalTime = obj.getString("final_time");
-
+			String action = obj.getString("action").replaceAll("_", "");
 
 			req = BusFinderActivity.SERVER + "getStopPosition?stopid=";
 
@@ -159,54 +158,48 @@ public class ServerOperations {
 			Log.d("TOAST", "Take " + circular + " from " + source_ + " at "
 					+ departure + " and arrive at " + dest_ + " at " + arrival
 					+ "----YOU HAVE " + timeleft + " seconds");
-			
-			
-			final Toast toast = Toast.makeText(c, "teste", Toast.LENGTH_SHORT);
-			//toast.setGravity(Gravity.TOP, 0, 70);
-			toast.setGravity(Gravity.BOTTOM, 0, 0);
-			toast.show();
 
-			
+			BusFinderActivity.toast = Toast.makeText(c, "teste",
+					Toast.LENGTH_SHORT);
+			// toast.setGravity(Gravity.TOP, 0, 70);
+			BusFinderActivity.toast.setGravity(Gravity.BOTTOM, 0, 0);
+			BusFinderActivity.toast.show();
+
 			BusFinderActivity.timer = new CountDownTimer(timeleft * 1000, 1000) {
 
 				public void onTick(long millisUntilFinished) {
-					toast.setText("Bus Leaves in: " + millisUntilFinished
-							/ 1000 + " seconds");
+					BusFinderActivity.toast.setText("Bus Leaves in: \n"
+							+ millisUntilFinished / 1000 + " seconds");
 					// mTextField.setText("seconds remaining: " +
 					// millisUntilFinished / 1000);
-					toast.show();
+					BusFinderActivity.toast.show();
 				}
 
 				public void onFinish() {
-					toast.setText("Time´s up!");
-					toast.show();
+					BusFinderActivity.toast.setText("Time´s up!");
+					BusFinderActivity.toast.show();
 				}
 			};
 
 			BusFinderActivity.timer.start();
 
-			
-			
 			BusFinderActivity.dialog = new AlertDialog.Builder(c).create();
-			BusFinderActivity.dialog.setMessage(
-					String.format("%s to %s (%d m)" +
-							"\n\n Take %s at %s" +
-							"\n\n Arrive at %s at %s" +
-							"\n\n Go to your final destination (%d m) ~%s" +
-							"", action,source_,distSource,circular,departure,dest_,arrival,distDest,finalTime)
-							 );
-					
-					/*"Take " + circular + " from "
-					+ source_ + " at " + departure + "\n\nArrive at " + dest_
-					+ " at " + arrival + "\n\nYOU HAVE " + timeleft
-					+ " seconds untill the bus leaves(you are )"++action);*/
+			BusFinderActivity.dialog.setMessage(String.format("%s to %s (%d m)"
+					+ "\n\n Take %s at %s" + "\n\n Arrive at %s at %s"
+					+ "\n\n Go to your final destination (%d m) ~%s" + "",
+					action,source+"_"+source_, distSource, circular, departure,dest+"_"+dest_,
+					arrival, distDest, finalTime));
+
+			/*
+			 * "Take " + circular + " from " + source_ + " at " + departure +
+			 * "\n\nArrive at " + dest_ + " at " + arrival + "\n\nYOU HAVE " +
+			 * timeleft + " seconds untill the bus leaves(you are )"++action);
+			 */
 
 			BusFinderActivity.dialog.setCanceledOnTouchOutside(true);
 			BusFinderActivity.dialog.show();
 			BusFinderActivity.dialog.setTitle("Instructions");
 
-			
-			
 			return;
 
 		} catch (JSONException e) {
@@ -219,49 +212,45 @@ public class ServerOperations {
 				Toast.LENGTH_LONG).show();
 
 	}
-	
-	public static void nextBuses(String  title,Context c){
-		
-		
+
+	public static void nextBuses(String title, Context c) {
+
 		int stopid = Integer.parseInt(title.split("_")[0]);
-		
-		String req = BusFinderActivity.SERVER+"getNextBus?stopid=";
+
+		String req = BusFinderActivity.SERVER + "getNextBus?stopid=";
 		JSONArray jar = getJSON(req + stopid);
-		String display="";
-		
-		try{
+		String display = "";
+		try {
+
+			for (int i = 0; i < jar.length(); i++) {
+				JSONObject jos = jar.getJSONObject(i);
+				String circular = jos.getString("circular");
+				String time = jos.getString("time");
+
+				display += "--" + circular + "------" + time + "\n";
+
+			}
+
+			AlertDialog dialog = new AlertDialog.Builder(c).create();
+
+			dialog.setTitle(title);
+			dialog.setMessage(display);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();
 			
-		
-		
-		for(int i=0; i<jar.length();i++){
-			JSONObject jos = jar.getJSONObject(i);
-			String circular = jos.getString("circular");
-			String time = jos.getString("time");
-			
-			display+="--"+circular+"------"+time+"\n";
-			
+			return;
+
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-		
-		
-		AlertDialog dialog = new AlertDialog.Builder(c).create();
-		
-		dialog.setTitle(title);
-		dialog.setMessage(display);
-		dialog.setCanceledOnTouchOutside(true);
-		dialog.show();
-		
-		
-		
-		}
-		catch(JSONException e){
+		catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		
-		
+		Toast.makeText(c, "Error or no Connection ..", Toast.LENGTH_SHORT).show();
+
+
 	}
-	
-	
 
 	private static String pad(int c) {
 		if (c >= 10)

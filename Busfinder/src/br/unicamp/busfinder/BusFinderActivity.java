@@ -37,6 +37,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -83,6 +84,7 @@ public class BusFinderActivity extends MapActivity implements
 	static FavoritePoints favorites;
 	public static AlertDialog dialog;
 	public static CountDownTimer timer;
+	public static Toast toast;
 
 	OverlayManager overlayManager;
 
@@ -357,7 +359,17 @@ public class BusFinderActivity extends MapActivity implements
 	}
 	
 	@Override
+	public boolean onMenuOpened(int featureId, Menu menu) {
+		Log.d(TAG,"onMenuOpened");
+
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+
 		switch (item.getItemId()) {
 		case R.id.itemPrefs:
 
@@ -372,6 +384,7 @@ public class BusFinderActivity extends MapActivity implements
 			TouchOverlay.pathlist.clearPath(map);
 			map.invalidate();
 			dialog=null;
+			toast.cancel();
 
 			break;
 

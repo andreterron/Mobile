@@ -217,8 +217,12 @@ public class TouchOverlay extends Overlay {
 		if (mapView == null)
 			mapView = BusFinderActivity.map;
 
-		if (clear)
+		if (clear){
+			if(BusFinderActivity.timer!=null)
+				BusFinderActivity.timer.cancel();				
+			BusFinderActivity.dialog=null;
 			pathlist.clearPath(mapView);
+		}
 		PathOverlay pO;
 
 		StringBuilder urlString = new StringBuilder();
