@@ -166,19 +166,22 @@ public class ServerOperations {
 			BusFinderActivity.toast = Toast.makeText(c, "teste",
 					Toast.LENGTH_SHORT);
 			BusFinderActivity.toast.setGravity(Gravity.BOTTOM, 0, 0);
-			BusFinderActivity.toast.show();
+			//BusFinderActivity.toast.show();
+			
 
 			BusFinderActivity.timer = new CountDownTimer(timeleft * 1000, 1000) {
 
 				public void onTick(long millisUntilFinished) {
-					BusFinderActivity.toast.setText("Bus Leaves\n in: "
-							+ millisUntilFinished / 1000 + " s");
-					BusFinderActivity.toast.show();
+					//BusFinderActivity.toast.setText("Bus Leaves\n in: "
+						//	+ millisUntilFinished / 1000 + " s");
+					//BusFinderActivity.toast.show();
+					BusFinderActivity.countdown.setText("Bus leaves in:"+ millisUntilFinished / 1000 + " s");
 				}
 
 				public void onFinish() {
 					BusFinderActivity.toast.setText("Time´s up!");
 					BusFinderActivity.toast.show();
+					BusFinderActivity.countdown.setText("0:00");
 				}
 			};
 
@@ -250,41 +253,48 @@ public class ServerOperations {
 
 	}
 
-	public static void updateBusPositions(Context c, MapView map) {
+	public static ListPoints updateBusPositions(Context c, MapView map, ListPoints realBus) {
 
 		Log.d("Updating Bus Posisionts ...","");
+		
+		realBus.clear();
+		
 		
 		String req = BusFinderActivity.SERVER + "getBusesPositions";
 		JSONArray jar = getJSON(req);
 		try {
 
-			JSONObject bus1 = jar.getJSONObject(0);
-			JSONObject bus2 = jar.getJSONObject(1);
+			for(int i=0; i<jar.length();i++){
+			
+			JSONObject bus = jar.getJSONObject(i);
 
-			GeoPoint gP1 = new GeoPoint(
-					(int) (bus1.getDouble("latitude") * 1e6),
-					(int) (bus1.getDouble("longitude") * 1e6));
-			GeoPoint gP2 = new GeoPoint(
-					(int) (bus2.getDouble("latitude") * 1e6),
-					(int) (bus2.getDouble("longitude") * 1e6));
-			String placa1 = bus1.getString("licensePlate");
-			String placa2 = bus2.getString("licensePlate");
+			GeoPoint gP = new GeoPoint(
+					(int) (bus.getDouble("latitude") * 1e6),
+					(int) (bus.getDouble("longitude") * 1e6));
+			//GeoPoint gP2 = new GeoPoint(
+				//	(int) (bus2.getDouble("latitude") * 1e6),
+					//(int) (bus2.getDouble("longitude") * 1e6));
+			String placa = bus.getString("licensePlate");
+			//String placa2 = bus2.getString("licensePlate");
 
-			Log.d(placa1, placa2);
+			Log.d(placa, gP.toString());
 
-			BusFinderActivity.realBus.clear();
-			BusFinderActivity.realBus.insertPinpoint(new PItem(gP1, "bus1",
-					placa1));
-			BusFinderActivity.realBus.insertPinpoint(new PItem(gP2, "bus2",
-					placa2));
+			//BusFinderActivity.
+			//BusFinderActivity.
+			realBus.insertPinpoint(new PItem(gP, "bus1",
+					placa));
+			//BusFinderActivity.
+			//realBus.insertPinpoint(new PItem(gP2, "bus2",
+				//	placa2));
 
-			 //BusFinderActivity.map.invalidate();
+			//BusFinderActivity.map.invalidate();
 			// map.getController().animateTo(gP2);
-
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		return realBus;
 	}
 
 	private static String pad(int c) {

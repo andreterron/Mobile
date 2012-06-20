@@ -48,6 +48,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -86,6 +87,7 @@ public class BusFinderActivity extends MapActivity implements
 	public static AlertDialog dialog;
 	public static CountDownTimer timer;
 	public static Toast toast;
+	public static TextView countdown;
 
 	OverlayManager overlayManager;
 
@@ -121,7 +123,7 @@ public class BusFinderActivity extends MapActivity implements
 		map.setTraffic(false);
 		map.setStreetView(false);
 		map.setStreetView(false);
-		
+
 		handler = new Handler();
 
 		busPositions = new ListPoints(getResources()
@@ -138,11 +140,14 @@ public class BusFinderActivity extends MapActivity implements
 
 		map.getOverlays().add(favorites);
 
-		realBus = new ListPoints(getResources().getDrawable(
-				R.drawable.favbus), this);
+		realBus = new ListPoints(getResources().getDrawable(R.drawable.favbus),
+				this);
 		map.getOverlays().add(realBus);
 
 		restorePointsList(favorites);
+
+		countdown = (TextView) findViewById(R.id.textView2);
+		// countdown.setText("123");
 
 		loadPrefs();
 		map.invalidate();
@@ -195,30 +200,34 @@ public class BusFinderActivity extends MapActivity implements
 
 			}
 		});
-		
+
 		routeButton = (Button) findViewById(R.id.button1);
 		routeButton.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-		    	Log.d("ROUTE", "CLICKED");
-		    	final CharSequence[] items = {"Circular 1", "Circular 2", "Nenhuma"};
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+			public void onClick(View v) {
+				Log.d("ROUTE", "CLICKED");
+				final CharSequence[] items = { "Circular 1", "Circular 2",
+						"Nenhuma" };
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(v
+						.getContext());
 				builder.setTitle("Escolha a rota");
 				builder.setItems(items, new DialogInterface.OnClickListener() {
-				    public void onClick(DialogInterface dialog, int item) {
-				    	Log.d("ROUTE", "CHOOSEN");
-						CharSequence[][] vias = {{""}, {"", "FEC", "Museu"}, {}};
-						
-				        //Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
-				    }
+					public void onClick(DialogInterface dialog, int item) {
+						Log.d("ROUTE", "CHOOSEN");
+						CharSequence[][] vias = { { "" },
+								{ "", "FEC", "Museu" }, {} };
+
+						// Toast.makeText(getApplicationContext(), items[item],
+						// Toast.LENGTH_SHORT).show();
+					}
 				});
 				AlertDialog alert = builder.create();
 				alert.show();
-				
+
 			}
 		});
-		
+
 		this.getCurrentFocus();
 		acTextView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -257,15 +266,18 @@ public class BusFinderActivity extends MapActivity implements
 		overlayManager.populate();
 
 		managedOverlay.setOnOverlayGestureListener(new GestureListener(this));
-		
-		ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+
+		ScheduledExecutorService scheduleTaskExecutor = Executors
+				.newScheduledThreadPool(5);
 
 		// This schedule a runnable task every 2 minutes
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
-		  public void run() {
-				ServerOperations.updateBusPositions(getApplicationContext(), map);	
-				//map.invalidate();
-		  }
+			public void run() {
+				ServerOperations.updateBusPositions(getApplicationContext(),
+						map, realBus);
+				// map.invalidate();
+				map.getOverlays().add(realBus);
+			}
 		}, 0, 60, TimeUnit.SECONDS);
 
 	}
@@ -407,8 +419,7 @@ public class BusFinderActivity extends MapActivity implements
 
 	@Override
 	public boolean onMenuOpened(int featureId, Menu menu) {
-		Log.d(TAG, "onMenuOpened");		
-			
+		Log.d(TAG, "onMenuOpened");
 
 		return true;
 	}
@@ -431,6 +442,7 @@ public class BusFinderActivity extends MapActivity implements
 			map.invalidate();
 			dialog = null;
 			toast.cancel();
+			countdown.setText("0:00");
 
 			break;
 
@@ -592,8 +604,8 @@ public class BusFinderActivity extends MapActivity implements
 				if (gpoint == null || stopName == null)
 					continue;
 
-				stops.insertPinpoint(new PItem(gpoint, stopid + "_" + stopName,
-						""));
+				stops.insertPinpoint(new PItem(gpoint,
+						stopid + "_ " + stopName, ""));
 
 			}
 
