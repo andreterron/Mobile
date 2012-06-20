@@ -50,6 +50,28 @@ class Resource(object):
             txt+= str(row) + "</br>"
         return txt
     
+    
+    @cherrypy.expose
+    def viewSavedPositions(self):
+        txt="[systemDatetime, moduleDatetime, licensePlate, latitude, longitude, altitude, speed, ignition]<br/>"
+        try:
+            reader = csv.reader(open('positions.csv'))
+        except:
+            return txt
+        for row in reader:
+            txt+= str(row) + "</br>"
+        return txt
+    
+    @cherrypy.expose
+    def savePoint(self, lat=None, lon=None):
+        if (lat == None or lon == None):
+            return "Erro - Latitude ou Longitude não foram especificadas"
+        writer = csv.writer(open('points.csv', 'ab')) #, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL
+        #writer.writerow(['Horario', 'Latitude', 'Longitude'])
+        writer.writerow([datetime.strftime(datetime.now(), "%d/%m/%Y %H:%M:%S"), str(lat), str(lon)])
+        return "Point (" + str(lat) + ',' + str(lon) + ") saved at " + datetime.strftime(datetime.now(), "%d/%m/%Y %H:%M:%S")
+    
+    
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def getBusesPositions(self):
@@ -64,15 +86,6 @@ class Resource(object):
             lcord.append(json.loads(response["body"]))
         #conn.request_put("/sidewinder", {'color': 'blue'}, headers={'content-type':'application/json', 'accept':'application/json'})
         return lcord
-    
-    @cherrypy.expose
-    def savePoint(self, lat=None, lon=None):
-        if (lat == None or lon == None):
-            return "Erro - Latitude ou Longitude não foram especificadas"
-        writer = csv.writer(open('points.csv', 'ab')) #, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL
-        #writer.writerow(['Horario', 'Latitude', 'Longitude'])
-        writer.writerow([datetime.strftime(datetime.now(), "%d/%m/%Y %H:%M:%S"), str(lat), str(lon)])
-        return "Point (" + str(lat) + ',' + str(lon) + ") saved at " + datetime.strftime(datetime.now(), "%d/%m/%Y %H:%M:%S")
     
     @cherrypy.expose
     @cherrypy.tools.json_out()
@@ -417,9 +430,9 @@ class Resource(object):
         
         for busD in dest_bus:
             for busS in source_bus:
-                if(busS["time"] < busD["time"] and busS["circular"] == busD["circular"] and busS["run"] <= busD["run"]):
-                    start_bus = self.getNextBus("1",time,circular=busS['circular'])
-                    end_bus = self.getNextBus("26",time,circular=busS['circular'])
+                if(busS["time"] < busD["time"] and busS["line"] == busD["line"] and busS["run"] <= busD["run"]):
+                    start_bus = self.getNextBus("1",time,line=busS['line'],via=busS['via'])
+                    end_bus = self.getNextBus("26",time,line=busS['line'],via=busS['via'])
                   
                     for ebus in end_bus:
                         if (ebus['run']==busS['run']):
@@ -465,10 +478,14 @@ class Resource(object):
         lines = ['Circular 1', 'Circular 2']
         vias = [[''], ['', 'FEC', 'Museu']]
         
-        line = lines.index(lname)
-        if line == -1: line = 1
-        via = vias.index(vname)
-        if via == -1:
+        if lname in lines:
+            line = lines.index(lname)
+        else:
+            line = 1
+        
+        if vname in vias:
+            via = vias.index(vname)
+        else:
             line = 0
             via = 0
         return {'line': line, 'via': via}
@@ -493,7 +510,7 @@ class Resource(object):
         if (time == ""):
             time = datetime.now()
         else:
-            time = datetime.strptime(time, "%H:%M")
+            time = datetime.strptime(time, "%H:%M:%S")
         for fname in tables:
             dados = list(csv.reader(open(fname[0])))
             dh = len(dados)
@@ -510,7 +527,7 @@ class Resource(object):
                 #if (m*(t - time) < (t - t)):
                 #    t = t.replace(day = t.day + m)
                 bline = fname[1]
-                bvia = self.getLineVia(self.getLineInfo(bline)['line'], dados[i][1])
+                bvia = self.getLineVia(self.getLineInfo(bline)['name'], dados[i][1])
                 if (m * (t - time) > (t - t)):
                     buses.append([abs(t - time), t, bline, bvia, i - 2])
         buses.sort()
@@ -519,12 +536,12 @@ class Resource(object):
         for i in range(0, limit):
             if i >= l:
                 break
-            txt += datetime.strftime(buses[i][1], "%H:%M") + " - " + buses[i][2] + " - run id = " + str(buses[i][3]) + "<br/>"
+            #txt += datetime.strftime(buses[i][1], "%H:%M:%S") + " - " + buses[i][2] + " - run id = " + str(buses[i][3]) + "<br/>"
             lret.append({
-                         'time': datetime.strftime(buses[i][1], "%H:%M"),
+                         'time': datetime.strftime(buses[i][1], "%H:%M:%S"),
                          'line' : buses[i][2],
                          'via' : buses[i][3],
-                         'circular' : self.getLineInfo(buses[i][2])['line'],
+                         'circular' : self.getLineInfo(buses[i][2])['name'],
                          'run' : buses[i][4]
                          })
         
@@ -606,10 +623,12 @@ root.resource = Resource()
     
 conf = {
     'global': {
-        'server.socket_host': '127.0.0.1', # 'mc933.lab.ic.unicamp.br', # 
+        'server.socket_host': 'mc933.lab.ic.unicamp.br', # '127.0.0.1', # 
         'server.socket_port': 8010,
     }
 }
+
+os.system("python rest-client.py")
 
 cherrypy.quickstart(Resource(), '', conf)
 
