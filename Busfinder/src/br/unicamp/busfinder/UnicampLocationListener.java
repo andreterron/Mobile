@@ -47,7 +47,7 @@ public class UnicampLocationListener implements LocationListener {
 		//map.getOverlays().remove(BusFinderActivity.myPosition);
 		//BusFinderActivity.myPosition = new MyLocOverlay(gpoint, "MyLoc","snipped");
 		BusFinderActivity.myPosition.clear();
-		BusFinderActivity.myPosition.insertPinpoint(new PItem(BusFinderActivity.myPoint, "mypoint", "snippet"));
+		BusFinderActivity.myPosition.insertPinpoint(new PItem(BusFinderActivity.myPoint, "mypoint", ""));
 		//map.getOverlays().add(BusFinderActivity.myPosition);
 
 		if(isMove()){

@@ -168,10 +168,8 @@ public class ServerOperations {
 			BusFinderActivity.timer = new CountDownTimer(timeleft * 1000, 1000) {
 
 				public void onTick(long millisUntilFinished) {
-					BusFinderActivity.toast.setText("Bus Leaves in: \n"
-							+ millisUntilFinished / 1000 + " seconds");
-					// mTextField.setText("seconds remaining: " +
-					// millisUntilFinished / 1000);
+					BusFinderActivity.toast.setText("Bus Leaves\n in: "
+							+ millisUntilFinished / 1000 + " s");
 					BusFinderActivity.toast.show();
 				}
 
@@ -190,12 +188,7 @@ public class ServerOperations {
 					action,source+"_"+source_, distSource, circular, departure,dest+"_"+dest_,
 					arrival, distDest, finalTime));
 
-			/*
-			 * "Take " + circular + " from " + source_ + " at " + departure +
-			 * "\n\nArrive at " + dest_ + " at " + arrival + "\n\nYOU HAVE " +
-			 * timeleft + " seconds untill the bus leaves(you are )"++action);
-			 */
-
+	
 			BusFinderActivity.dialog.setCanceledOnTouchOutside(true);
 			BusFinderActivity.dialog.show();
 			BusFinderActivity.dialog.setTitle("Instructions");

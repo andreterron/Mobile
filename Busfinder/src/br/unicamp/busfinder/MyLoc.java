@@ -82,14 +82,14 @@ public class MyLoc extends ListPoints {
 					}
 				});
 		
-		alert.setButton2("Closest Bus Stops", new DialogInterface.OnClickListener() {
+		//alert.setButton2("Closest Bus Stops", new DialogInterface.OnClickListener() {
 			
-			public void onClick(DialogInterface dialog, int which) {
+		//	public void onClick(DialogInterface dialog, int which) {
 				
+		//		
 				
-				
-			}
-		});
+		//	}
+		//});
 		alert.setCanceledOnTouchOutside(true);
 
 		alert.show();
