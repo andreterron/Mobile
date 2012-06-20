@@ -270,17 +270,53 @@ class Resource(object):
     @cherrypy.expose
     @cherrypy.tools.json_out() 
     def getBusPath(self, line=0, via=0, start=-1, end=-1):
-        lp = []
         try:
-            doc = xml.dom.minidom.parse("Linha" + (line + 1) + ".kml")
+            doc = xml.dom.minidom.parse("Linha1.kml")
         except:
             return []
         
+        linepts = self.listLinePoints(line, via)
+        sp = ep = -1 # Point IDs
+        sd = ed = -1 # Distancias
+        start_pt = end_pt = None
         if start != -1:
-            pt = self.getStopPosition(start)
-            point = self.routeClosestPoint(pt['lat'], pt['lon'], line, via)
-
-        return None
+            if linepts.index(start) == -1: start = -1
+            else:
+                pt = self.getStopPosition(start)
+                start_pt = geo.xyz(float(pt['lat']), float(pt['lon']))
+        if end != -1:
+            if linepts.index(end) == -1: end = -1
+            else:
+                pt = self.getStopPosition(end)
+                end_pt = geo.xyz(float(pt['lat']), float(pt['lon']))
+        
+        plist = []
+        for node in doc.getElementsByTagName("coordinates"):
+            pts = node.childNodes[0].data.split()
+            for i in range(0, len(pts)):
+                #plist.append(pts[i])
+                #continue
+                p = pts[i].split(',')
+                pt = geo.xyz(float(p[0]), float(p[1]))
+                plist.append({'lat': p[0], 'lon': p[1]})
+                if start_pt != None:
+                    d = geo.distance(start_pt, pt)
+                    if sd == -1 or d < sd:
+                        #point = {'lat': p[0], 'lon': p[1], 'dist': sd}
+                        sd = d
+                        sp = i
+                if end_pt != None:
+                    d = geo.distance(end_pt, pt)
+                    if ed == -1 or d < ed:
+                        #point = {'lat': p[0], 'lon': p[1], 'dist': ed}
+                        ed = d
+                        ep = i
+        if (ep == -1 or sp == -1):
+            return plist
+        elif ep < sp:
+            return plist[sp:] + plist[:ep]
+        else:
+            return plist[sp:ep]
     
     @cherrypy.expose
     def getFullRoute(self, line=0, via=0):
