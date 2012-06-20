@@ -508,7 +508,7 @@ public class BusFinderActivity extends MapActivity implements
 				NodeList kids = nplace.item(i).getChildNodes();
 				GeoPoint gpoint = null;
 				String stopName = null;
-				String stopid;
+				String stopid = null;
 
 				for (j = 0; j < kids.getLength(); j++) {
 					if (kids.item(j).getNodeName().contains("Point")) {
@@ -530,7 +530,7 @@ public class BusFinderActivity extends MapActivity implements
 				if (gpoint == null || stopName == null)
 					continue;
 
-				stops.insertPinpoint(new PItem(gpoint, stopName, ""));
+				stops.insertPinpoint(new PItem(gpoint, stopid+"_"+stopName, ""));
 
 			}
 

@@ -162,7 +162,8 @@ public class ServerOperations {
 			
 			
 			final Toast toast = Toast.makeText(c, "teste", Toast.LENGTH_SHORT);
-			toast.setGravity(Gravity.TOP, 0, 70);
+			//toast.setGravity(Gravity.TOP, 0, 70);
+			toast.setGravity(Gravity.BOTTOM, 0, 0);
 			toast.show();
 
 			
@@ -219,7 +220,44 @@ public class ServerOperations {
 
 	}
 	
-	public static void nextBuses(Context c){
+	public static void nextBuses(String  title,Context c){
+		
+		
+		int stopid = Integer.parseInt(title.split("_")[0]);
+		
+		String req = BusFinderActivity.SERVER+"getNextBus?stopid=";
+		JSONArray jar = getJSON(req + stopid);
+		String display="";
+		
+		try{
+			
+		
+		
+		for(int i=0; i<jar.length();i++){
+			JSONObject jos = jar.getJSONObject(i);
+			String circular = jos.getString("circular");
+			String time = jos.getString("time");
+			
+			display+="--"+circular+"------"+time+"\n";
+			
+		}
+		
+		
+		AlertDialog dialog = new AlertDialog.Builder(c).create();
+		
+		dialog.setTitle(title);
+		dialog.setMessage(display);
+		dialog.setCanceledOnTouchOutside(true);
+		dialog.show();
+		
+		
+		
+		}
+		catch(JSONException e){
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 	

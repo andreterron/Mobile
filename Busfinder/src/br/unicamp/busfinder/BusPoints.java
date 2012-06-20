@@ -39,6 +39,11 @@ public class BusPoints extends ListPoints {
 
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
+				
+				
+				String title = item.getTitle();
+				
+				ServerOperations.nextBuses(title,context);
 
 			}
 		});
@@ -93,25 +98,7 @@ public class BusPoints extends ListPoints {
 						});
 						alert2.show();
 						
-						/*
 						
-						
-						GeoPoint src = BusFinderActivity
-								.getCurrentPosition(context);
-
-						TouchOverlay.DrawPath(src, item.getPoint(), Color.CYAN,
-								null, false);
-
-						Toast.makeText(
-								context,
-								"destination is "
-										+ BusFinderActivity.GeoDistance(
-												BusFinderActivity.myPoint,
-												item.getPoint()) + "m away",
-								Toast.LENGTH_SHORT).show();
-								*/
-
-						//item.setMarker(boundCenter(getBusIcon()));
 					}
 				});
 
