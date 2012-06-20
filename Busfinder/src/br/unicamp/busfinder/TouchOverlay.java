@@ -152,7 +152,13 @@ public class TouchOverlay extends Overlay {
 						
 						public void onClick(DialogInterface dialog, int which) {
 
-							ServerOperations.Point2Point(touchedpoint, BusFinderActivity.map, context,Calendar.getInstance());
+							
+							//new Thread(new Runnable() {
+								
+							//	public void run() {
+									ServerOperations.Point2Point(touchedpoint, BusFinderActivity.map, context,Calendar.getInstance());
+							//	}
+						//	});
 							
 						}
 					});
@@ -169,10 +175,17 @@ public class TouchOverlay extends Overlay {
 							
 							TimePickerDialog.OnTimeSetListener mTimeSetListener =
 								    new TimePickerDialog.OnTimeSetListener() {
-								        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+								        public void onTimeSet(TimePicker view, final int hourOfDay, final int minute) {
 								          
-								        	now.setTime(new Time(hourOfDay, minute, 0));
-								        	ServerOperations.Point2Point(touchedpoint, BusFinderActivity.map, context,now);
+								        	
+								        //	new Thread(new Runnable() {
+												
+										//		public void run() {
+										        	now.setTime(new Time(hourOfDay, minute, 0));
+										        	ServerOperations.Point2Point(touchedpoint, BusFinderActivity.map, context,now);													
+										//		}
+										//	});
+
 								        	
 								        	
 								        }
@@ -214,6 +227,7 @@ public class TouchOverlay extends Overlay {
 			MapView mapView, boolean clear) {
 		// connect to map web service
 
+		
 		if (mapView == null)
 			mapView = BusFinderActivity.map;
 
@@ -297,6 +311,9 @@ public class TouchOverlay extends Overlay {
 				pathlist.addItem(pO, mapView);
 				// mapView.getOverlays().add(pathlist);
 				mapView.invalidate();
+				
+							
+				
 
 				// use
 				// the

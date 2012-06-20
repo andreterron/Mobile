@@ -41,9 +41,15 @@ public class BusPoints extends ListPoints {
 				// TODO Auto-generated method stub
 				
 				
-				String title = item.getTitle();
+				final String title = item.getTitle();
 				
-				ServerOperations.nextBuses(title,context);
+				//new Thread(new Runnable() {
+				 //   public void run() {
+						ServerOperations.nextBuses(title,context);
+
+				  //  }
+				//  }).start();
+
 
 			}
 		});
@@ -64,7 +70,12 @@ public class BusPoints extends ListPoints {
 							
 							public void onClick(DialogInterface dialog, int which) {
 
-								ServerOperations.Point2Point(item.getPoint(), BusFinderActivity.map, context,Calendar.getInstance());
+								//new Thread(new Runnable() {
+								//    public void run() {
+										ServerOperations.Point2Point(item.getPoint(), BusFinderActivity.map, context,Calendar.getInstance());
+
+								//    }
+								//  }).start();								
 								
 							}
 						});
@@ -81,10 +92,14 @@ public class BusPoints extends ListPoints {
 								
 								TimePickerDialog.OnTimeSetListener mTimeSetListener =
 									    new TimePickerDialog.OnTimeSetListener() {
-									        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+									        public void onTimeSet(TimePicker view, final int hourOfDay, final int minute) {
 									          
+									       // 	new Thread(new Runnable() {
+											//	    public void run() {
 									        	now.setTime(new Time(hourOfDay, minute, 0));
 									        	ServerOperations.Point2Point(item.getPoint(), BusFinderActivity.map, context,now);
+											//	    }
+									       // 	}).start();
 									        	
 									        	
 									        }

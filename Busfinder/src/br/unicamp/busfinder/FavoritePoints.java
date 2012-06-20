@@ -57,7 +57,14 @@ public class FavoritePoints extends ListPoints {
 							
 							public void onClick(DialogInterface dialog, int which) {
 
-								ServerOperations.Point2Point(item.getPoint(), BusFinderActivity.map, context,Calendar.getInstance());
+								
+								//new Thread(new Runnable() {
+									
+								//	public void run() {
+										ServerOperations.Point2Point(item.getPoint(), BusFinderActivity.map, context,Calendar.getInstance());
+										
+								//	}
+							//	});
 								
 							}
 						});
@@ -74,13 +81,19 @@ public class FavoritePoints extends ListPoints {
 								
 								TimePickerDialog.OnTimeSetListener mTimeSetListener =
 									    new TimePickerDialog.OnTimeSetListener() {
-									        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+									        public void onTimeSet(TimePicker view, final int hourOfDay, final int minute) {
 									          
-									        	now.setTime(new Time(hourOfDay, minute, 0));
-									        	ServerOperations.Point2Point(item.getPoint(), BusFinderActivity.map, context,now);
+									        //	new Thread(new Runnable() {
+													
+												//	public void run() {
+														now.setTime(new Time(hourOfDay, minute, 0));
+											        	ServerOperations.Point2Point(item.getPoint(), BusFinderActivity.map, context,now);														
+												//	}
+											//	});
 									        	
 									        	
-									        }
+									        	
+									       }
 									    };
 								
 								TimePickerDialog tp = new TimePickerDialog(context, mTimeSetListener, now.getTime().getHours(),now.getTime().getMinutes(), true);

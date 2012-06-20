@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,11 +32,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -66,7 +69,9 @@ public class BusFinderActivity extends MapActivity implements
 
 	public static MapView map;
 	private MapController controller;
-	public static ListPoints myPosition;
+	public static MyLoc myPosition;
+
+	public static ListPoints realBus;
 
 	private static LocationManager lm;
 	UnicampLocationListener locationListener;
@@ -85,8 +90,9 @@ public class BusFinderActivity extends MapActivity implements
 	ImageButton button;
 	AutoCompleteTextView acTextView;
 	boolean isFavorite = true;
+	static Handler handler;
 
-	//teste
+	// teste
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,6 +117,8 @@ public class BusFinderActivity extends MapActivity implements
 		map.setTraffic(false);
 		map.setStreetView(false);
 		map.setStreetView(false);
+		
+		handler = new Handler();
 
 		busPoints = new BusPoints(getResources()
 				.getDrawable(R.drawable.busstop), this);
@@ -123,8 +131,9 @@ public class BusFinderActivity extends MapActivity implements
 
 		map.getOverlays().add(favorites);
 
-		myPosition = new ListPoints(getResources().getDrawable(
-				R.drawable.ic_launcher), this);
+		realBus = new ListPoints(getResources().getDrawable(
+				R.drawable.favbus), this);
+		map.getOverlays().add(realBus);
 
 		restorePointsList(favorites);
 
@@ -158,37 +167,42 @@ public class BusFinderActivity extends MapActivity implements
 		acTextView = (AutoCompleteTextView) findViewById(R.id.fav_search);
 
 		acTextView.setAdapter(favorites.getAdapter());
-		
+
 		acTextView.addTextChangedListener(new TextWatcher() {
-			
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
+
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+
 			}
-			
+
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				
+
 			}
-			
+
 			public void afterTextChanged(Editable s) {
 				Log.d("LISTENER", "TextWatcher");
 				favorites.updateShownPoints(s.toString());
 				busPoints.updateShownPoints(s.toString());
 				map.invalidate();
-				
+
 			}
 		});
 		this.getCurrentFocus();
-		acTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		acTextView
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Log.d("LISTENER", "OnItemClickListener Activated with args: " + arg2 + " and " + arg3);
-				BusFinderActivity a = (BusFinderActivity) arg1.getContext();
-				a.hideKeyboard();
-				arg1.clearFocus();
-			}
-		});
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						Log.d("LISTENER",
+								"OnItemClickListener Activated with args: "
+										+ arg2 + " and " + arg3);
+						BusFinderActivity a = (BusFinderActivity) arg1
+								.getContext();
+						a.hideKeyboard();
+						arg1.clearFocus();
+					}
+				});
 		// textView.setAdapter(busPoints.getAdapter());
 
 		button = (ImageButton) findViewById(R.id.imageButton1);
@@ -212,6 +226,15 @@ public class BusFinderActivity extends MapActivity implements
 		overlayManager.populate();
 
 		managedOverlay.setOnOverlayGestureListener(new GestureListener(this));
+		
+		ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+
+		// This schedule a runnable task every 2 minutes
+		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+		  public void run() {
+				ServerOperations.updateBusPositions(getApplicationContext(), map);		      
+		  }
+		}, 0, 60, TimeUnit.SECONDS);
 
 	}
 
@@ -247,10 +270,9 @@ public class BusFinderActivity extends MapActivity implements
 		Log.d(TAG, "onStop");
 		super.onStop();
 	}
-	
+
 	public void hideKeyboard() {
-		InputMethodManager imm = (InputMethodManager) getSystemService(
-			    INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		View v = getCurrentFocus();
 		if (v != null)
 			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -350,18 +372,17 @@ public class BusFinderActivity extends MapActivity implements
 		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onMenuOpened(int featureId, Menu menu) {
-		Log.d(TAG,"onMenuOpened");
+		Log.d(TAG, "onMenuOpened");		
+			
 
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		toast.setGravity(Gravity.BOTTOM, 0, 0);
 
 		switch (item.getItemId()) {
 		case R.id.itemPrefs:
@@ -372,20 +393,21 @@ public class BusFinderActivity extends MapActivity implements
 			break;
 		case R.id.itemKML:
 
-			if(timer!=null)
-				timer.cancel();				
+			if (timer != null)
+				timer.cancel();
 			TouchOverlay.pathlist.clearPath(map);
 			map.invalidate();
-			dialog=null;
+			dialog = null;
 			toast.cancel();
 
 			break;
 
 		case R.id.itemInfo:
-			if(dialog!=null)
+			if (dialog != null)
 				dialog.show();
-			else Toast.makeText(this, "No route created", Toast.LENGTH_SHORT);
-			
+			else
+				Toast.makeText(this, "No route created", Toast.LENGTH_SHORT);
+
 			break;
 
 		case R.id.itemLocation:
@@ -505,7 +527,8 @@ public class BusFinderActivity extends MapActivity implements
 			doc = db.parse(fis);
 			if (doc == null)
 				Log.d(TAG, "DOC NULL");
-			//Log.d("TEXTCONTEXT:", doc.getElementsByTagName("Coordinates").toString());
+			// Log.d("TEXTCONTEXT:",
+			// doc.getElementsByTagName("Coordinates").toString());
 
 			NodeList nplace = doc.getElementsByTagName("Placemark");
 			int j;
@@ -520,23 +543,25 @@ public class BusFinderActivity extends MapActivity implements
 					if (kids.item(j).getNodeName().contains("Point")) {
 						String[] pairs = kids.item(j).getTextContent().trim()
 								.split(",");
-						//Log.d("Point", "LAT:" + pairs[0] + "LON:" + pairs[1]);
+						// Log.d("Point", "LAT:" + pairs[0] + "LON:" +
+						// pairs[1]);
 						gpoint = new GeoPoint(
 								(int) (Double.parseDouble(pairs[1]) * 1E6),
 								(int) (Double.parseDouble(pairs[0]) * 1E6));
 					} else if (kids.item(j).getNodeName().contains("name")) {
 						stopName = kids.item(j).getTextContent().trim();
-						//Log.d("Point Name", "BUSSTOP NAME : " + stopName);
+						// Log.d("Point Name", "BUSSTOP NAME : " + stopName);
 					} else if (kids.item(j).getNodeName().contains("stopid")) {
 						stopid = kids.item(j).getTextContent().trim();
-						//Log.d(stopName, stopid);
+						// Log.d(stopName, stopid);
 					}
 
 				}
 				if (gpoint == null || stopName == null)
 					continue;
 
-				stops.insertPinpoint(new PItem(gpoint, stopid+"_"+stopName, ""));
+				stops.insertPinpoint(new PItem(gpoint, stopid + "_" + stopName,
+						""));
 
 			}
 

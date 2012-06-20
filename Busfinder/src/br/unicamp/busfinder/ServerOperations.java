@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -73,15 +74,16 @@ public class ServerOperations {
 
 	}
 
-	public static GeoPoint geoFromJSON(JSONObject j) {
+	public static GeoPoint geoFromJSON(JSONObject j, String lat_, String lon_,
+			String name_) {
 
 		try {
 			if (j == null)
 				return null;
 
-			int lat = (int) (Double.parseDouble(j.getString("lat")) * 1e6);
-			int lon = (int) (Double.parseDouble(j.getString("lon")) * 1e6);
-			String name = j.getString("name");
+			int lat = (int) (Double.parseDouble(j.getString(lat_)) * 1e6);
+			int lon = (int) (Double.parseDouble(j.getString(lon_)) * 1e6);
+			String name = j.getString(name_);
 
 			return new GeoPoint(lat, lon);
 		} catch (JSONException e) {
@@ -92,7 +94,7 @@ public class ServerOperations {
 	}
 
 	public static void Point2Point(GeoPoint touchedpoint, MapView map,
-			Context c, Calendar now) {
+			final Context c, Calendar now) {
 
 		// now.setTime(new Time(12, 40, 00)); // remove this
 		String time = pad(now.getTime().getHours()) + ":"
@@ -131,7 +133,8 @@ public class ServerOperations {
 
 			JSONArray jar = getJSON(req + source);
 
-			GeoPoint sourcePoint = geoFromJSON(jar.getJSONObject(0));
+			GeoPoint sourcePoint = geoFromJSON(jar.getJSONObject(0), "lat",
+					"lon", "name");
 
 			TouchOverlay.DrawPath(BusFinderActivity.myPoint, sourcePoint,
 					Color.GREEN, map, true);
@@ -142,7 +145,8 @@ public class ServerOperations {
 
 			jar = getJSON(req + dest);
 
-			GeoPoint destPoint = geoFromJSON(jar.getJSONObject(0));
+			GeoPoint destPoint = geoFromJSON(jar.getJSONObject(0), "lat",
+					"lon", "name");
 
 			TouchOverlay.DrawPath(destPoint, touchedpoint, Color.BLUE, map,
 					false);
@@ -161,7 +165,6 @@ public class ServerOperations {
 
 			BusFinderActivity.toast = Toast.makeText(c, "teste",
 					Toast.LENGTH_SHORT);
-			// toast.setGravity(Gravity.TOP, 0, 70);
 			BusFinderActivity.toast.setGravity(Gravity.BOTTOM, 0, 0);
 			BusFinderActivity.toast.show();
 
@@ -182,13 +185,14 @@ public class ServerOperations {
 			BusFinderActivity.timer.start();
 
 			BusFinderActivity.dialog = new AlertDialog.Builder(c).create();
-			BusFinderActivity.dialog.setMessage(String.format("%s to %s (%d m)"
-					+ "\n\n Take %s at %s" + "\n\n Arrive at %s at %s"
-					+ "\n\n Go to your final destination (%d m) ~%s" + "",
-					action,source+"_"+source_, distSource, circular, departure,dest+"_"+dest_,
-					arrival, distDest, finalTime));
+			BusFinderActivity.dialog.setMessage(String
+					.format("%s to %s (%d m)" + "\n\n Take %s at %s"
+							+ "\n\n Arrive at %s at %s"
+							+ "\n\n Go to your final destination (%d m) ~%s"
+							+ "", action, source + "_" + source_, distSource,
+							circular, departure, dest + "_" + dest_, arrival,
+							distDest, finalTime));
 
-	
 			BusFinderActivity.dialog.setCanceledOnTouchOutside(true);
 			BusFinderActivity.dialog.show();
 			BusFinderActivity.dialog.setTitle("Instructions");
@@ -206,7 +210,7 @@ public class ServerOperations {
 
 	}
 
-	public static void nextBuses(String title, Context c) {
+	public static void nextBuses(final String title, final Context c) {
 
 		int stopid = Integer.parseInt(title.split("_")[0]);
 
@@ -224,24 +228,62 @@ public class ServerOperations {
 
 			}
 
+			final String display_ = display;
+
 			AlertDialog dialog = new AlertDialog.Builder(c).create();
 
 			dialog.setTitle(title);
-			dialog.setMessage(display);
+			dialog.setMessage(display_);
 			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();
-			
+
 			return;
 
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		Toast.makeText(c, "Error or no Connection ..", Toast.LENGTH_SHORT).show();
 
+		Toast.makeText(c, "Error or no Connection ..", Toast.LENGTH_SHORT)
+				.show();
+
+	}
+
+	public static void updateBusPositions(Context c, MapView map) {
+
+		Log.d("Updating Bus Posisionts","");
+		
+		String req = BusFinderActivity.SERVER + "getBusesPositions";
+		JSONArray jar = getJSON(req);
+		try {
+
+			JSONObject bus1 = jar.getJSONObject(0);
+			JSONObject bus2 = jar.getJSONObject(1);
+
+			GeoPoint gP1 = new GeoPoint(
+					(int) (bus1.getDouble("latitude") * 1e6),
+					(int) (bus1.getDouble("longitude") * 1e6));
+			GeoPoint gP2 = new GeoPoint(
+					(int) (bus2.getDouble("latitude") * 1e6),
+					(int) (bus2.getDouble("longitude") * 1e6));
+			String placa1 = bus1.getString("licensePlate");
+			String placa2 = bus2.getString("licensePlate");
+
+			Log.d(placa1, placa2);
+
+			BusFinderActivity.realBus.clear();
+			BusFinderActivity.realBus.insertPinpoint(new PItem(gP1, "bus1",
+					placa1));
+			BusFinderActivity.realBus.insertPinpoint(new PItem(gP2, "bus2",
+					placa2));
+
+			// map.invalidate();
+			// map.getController().animateTo(gP2);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
