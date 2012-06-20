@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>Linha1</name>
+  <description><![CDATA[]]></description>
+  <Style id="style26">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style2">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style13">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style12">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style27">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style21">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style28">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style1">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style5">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style4">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style17">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style7">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style22">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style6">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style25">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style18">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style10">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style8">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style29">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style24">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style23">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style3">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style19">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style16">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style15">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style11">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style9">
+    <LineStyle>
+      <color>73FF0000</color>
+      <width>5</width>
+    </LineStyle>
+  </Style>
+  <Style id="style14">
+    <LineStyle>
+      <color>73FF0000</color>
+      <width>5</width>
+    </LineStyle>
+  </Style>
+  <Style id="style20">
+    <LineStyle>
+      <color>73FF0000</color>
+      <width>5</width>
+    </LineStyle>
+  </Style>
+  <Placemark>
+    <name>01 - PI</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style26</styleUrl>
+    <Point>
+      <coordinates>-47.062252,-22.829617,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>02 - Creche</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style2</styleUrl>
+    <Point>
+      <coordinates>-47.062778,-22.827551,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>03 - CAISM</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style13</styleUrl>
+    <Point>
+      <coordinates>-47.066673,-22.828047,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>04 - Port F1 HC</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style12</styleUrl>
+    <Point>
+      <coordinates>-47.066544,-22.825739,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>05 - CEMEQ</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style27</styleUrl>
+    <Point>
+      <coordinates>-47.064098,-22.824499,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>06 - BIOTÉRIO</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style21</styleUrl>
+    <Point>
+      <coordinates>-47.061386,-22.823824,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>08 - EDITORA</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style28</styleUrl>
+    <Point>
+      <coordinates>-47.061470,-22.823595,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>07 - Meio Ambiente</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Point>
+      <coordinates>-47.060028,-22.823452,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>09 - CEBMEG/FEAGRI</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style5</styleUrl>
+    <Point>
+      <coordinates>-47.060711,-22.821575,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>10 - Genética/FEAGRI</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style4</styleUrl>
+    <Point>
+      <coordinates>-47.059555,-22.818256,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>11 - FEAGRI/EMBRAPA</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style17</styleUrl>
+    <Point>
+      <coordinates>-47.060558,-22.817965,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>12 - CCUEC</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style7</styleUrl>
+    <Point>
+      <coordinates>-47.062973,-22.817978,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>13 - FEM</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style22</styleUrl>
+    <Point>
+      <coordinates>-47.064865,-22.818918,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>14 - FEM</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style6</styleUrl>
+    <Point>
+      <coordinates>-47.066185,-22.818369,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>15 - FE/IFGW</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style25</styleUrl>
+    <Point>
+      <coordinates>-47.066025,-22.816919,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>16 - IE/IMECC</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style18</styleUrl>
+    <Point>
+      <coordinates>-47.067005,-22.814829,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>17 - ADUNICAMP</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style10</styleUrl>
+    <Point>
+      <coordinates>-47.065273,-22.813410,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>18 - FUNCAMP/COMVEST</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style8</styleUrl>
+    <Point>
+      <coordinates>-47.067532,-22.812475,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>19 - Casa do Lago</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style29</styleUrl>
+    <Point>
+      <coordinates>-47.069481,-22.812960,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>20 - FEF/Ginásio</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style24</styleUrl>
+    <Point>
+      <coordinates>-47.071487,-22.813923,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>21 - FEF/RU</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style23</styleUrl>
+    <Point>
+      <coordinates>-47.072830,-22.816292,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>22 - SIARQ</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style3</styleUrl>
+    <Point>
+      <coordinates>-47.072445,-22.819147,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>23 - ZOOL.</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style19</styleUrl>
+    <Point>
+      <coordinates>-47.070171,-22.821728,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>24 - REITORIA</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style16</styleUrl>
+    <Point>
+      <coordinates>-47.067200,-22.825010,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>25 - CAISM</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style15</styleUrl>
+    <Point>
+      <coordinates>-47.066181,-22.828798,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>26 - FCM</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style11</styleUrl>
+    <Point>
+      <coordinates>-47.064034,-22.829531,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>RotaParte1</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>#style9</styleUrl>
+    <ExtendedData>
+      <Data name="_SnapToRoads">
+        <value>true</value>
+      </Data>
+    </ExtendedData>
+    <LineString>
+      <tessellate>1</tessellate>
+      <coordinates>
+        -47.062241,-22.829611,0.000000
+        -47.061989,-22.829630,0.000000
+        -47.061989,-22.829630,0.000000
+        -47.061779,-22.829590,0.000000
+        -47.061722,-22.829399,0.000000
+        -47.062000,-22.829121,0.000000
+        -47.063042,-22.827049,0.000000
+        -47.063042,-22.827049,0.000000
+        -47.065979,-22.828310,0.000000
+        -47.066189,-22.828350,0.000000
+        -47.066349,-22.828300,0.000000
+        -47.066349,-22.828300,0.000000
+        -47.067299,-22.827320,0.000000
+        -47.067471,-22.827049,0.000000
+        -47.067520,-22.826811,0.000000
+        -47.067501,-22.826559,0.000000
+        -47.067371,-22.826220,0.000000
+        -47.067081,-22.825920,0.000000
+        -47.067081,-22.825920,0.000000
+        -47.066689,-22.825800,0.000000
+        -47.065140,-22.825109,0.000000
+        -47.064930,-22.824829,0.000000
+        -47.063290,-22.824129,0.000000
+        -47.062851,-22.824150,0.000000
+        -47.062851,-22.824150,0.000000
+        -47.062691,-22.823900,0.000000
+        -47.062199,-22.823700,0.000000
+        -47.062199,-22.823700,0.000000
+        -47.062111,-22.823690,0.000000
+        -47.061790,-22.823799,0.000000
+        -47.061588,-22.823799,0.000000
+        -47.060261,-22.823271,0.000000
+        -47.059731,-22.824230,0.000000
+        -47.059731,-22.824230,0.000000
+        -47.060261,-22.823271,0.000000
+        -47.061588,-22.823799,0.000000
+        -47.061790,-22.823799,0.000000
+        -47.062050,-22.823601,0.000000
+        -47.062050,-22.823601,0.000000
+        -47.062092,-22.823509,0.000000
+        -47.061649,-22.822321,0.000000
+        -47.060982,-22.822010,0.000000
+        -47.060848,-22.821871,0.000000
+        -47.060181,-22.819920,0.000000
+        -47.060059,-22.819151,0.000000
+        -47.060085,-22.819246,0.000000
+        -47.059765,-22.817980,0.000000
+        -47.059761,-22.818020,0.000000
+        -47.061798,-22.818110,0.000000
+        -47.061798,-22.818110,0.000000
+        -47.061810,-22.817949,0.000000
+        -47.062672,-22.818020,0.000000
+        -47.062672,-22.818020,0.000000
+        -47.063721,-22.818081,0.000000
+        -47.063721,-22.818081,0.000000
+        -47.063862,-22.817989,0.000000
+        -47.064030,-22.818020,0.000000
+        -47.064629,-22.819120,0.000000
+        -47.064629,-22.819120,0.000000
+        -47.066391,-22.818420,0.000000
+        -47.066391,-22.818420,0.000000
+        -47.066200,-22.817949,0.000000
+        -47.066109,-22.817141,0.000000
+        -47.066139,-22.816719,0.000000
+        -47.066250,-22.816210,0.000000
+        -47.066601,-22.815460,0.000000
+        -47.067169,-22.814770,0.000000
+        -47.067169,-22.814770,0.000000
+        -47.065472,-22.813169,0.000000
+        -47.065472,-22.813169,0.000000
+        -47.064781,-22.813789,0.000000
+        -47.064781,-22.813789,0.000000
+        -47.064541,-22.813721,0.000000
+        -47.064541,-22.813721,0.000000
+        -47.064442,-22.813400,0.000000
+        -47.064251,-22.813190,0.000000
+        -47.064251,-22.813190,0.000000
+        -47.064251,-22.813061,0.000000
+        -47.064339,-22.812969,0.000000
+        -47.066158,-22.812630,0.000000
+        -47.066582,-22.812670,0.000000
+        -47.066582,-22.812670,0.000000
+        -47.067219,-22.812571,0.000000
+        -47.067699,-22.812559,0.000000
+        -47.068642,-22.812731,0.000000
+        -47.070259,-22.813330,0.000000
+        -47.070782,-22.813629,0.000000
+        -47.071072,-22.813869,0.000000
+        -47.071140,-22.813850,0.000000
+        -47.071369,-22.813919,0.000000
+        -47.072048,-22.814489,0.000000
+        -47.072369,-22.814840,0.000000
+        -47.072701,-22.815620,0.000000
+        -47.072750,-22.816059,0.000000
+        -47.072731,-22.817270,0.000000
+        -47.072632,-22.818050,0.000000
+        -47.072632,-22.818050,0.000000
+        -47.072769,-22.818150,0.000000
+        -47.072861,-22.818371,0.000000
+        -47.072769,-22.818649,0.000000
+        -47.072659,-22.818750,0.000000
+        -47.072510,-22.818790,0.000000
+        -47.072350,-22.819229,0.000000
+        -47.071930,-22.819851,0.000000
+        -47.069939,-22.821951,0.000000
+        -47.069939,-22.821951,0.000000
+        -47.069870,-22.822170,0.000000
+        -47.069710,-22.822250,0.000000
+        -47.066830,-22.825399,0.000000
+        -47.066830,-22.825399,0.000000
+        -47.066730,-22.825510,0.000000
+        -47.066761,-22.825621,0.000000
+        -47.067570,-22.825970,0.000000
+        -47.067680,-22.826090,0.000000
+        -47.067730,-22.826550,0.000000
+        -47.067589,-22.827110,0.000000
+        -47.067410,-22.827431,0.000000
+        -47.065491,-22.829430,0.000000
+        -47.065369,-22.829500,0.000000
+        -47.065369,-22.829500,0.000000
+        -47.065220,-22.829630,0.000000
+        -47.065048,-22.829531,0.000000
+        -47.064770,-22.829479,0.000000
+        -47.062241,-22.829611,0.000000
+      </coordinates>
+    </LineString>
+  </Placemark>
+</Document>
+</kml>

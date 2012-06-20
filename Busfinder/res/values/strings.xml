@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MapsGpsUnicampActivity!</string>
+    <string name="app_name">BusFinder</string>
+    <string name="titleToggle">Toggle Street View</string>
+    <string name="titleStreetView">Street View</string>
+    <string name="summaryStreetView">Display street view or not</string>
+    <string name="titlePrefs">Preferences</string>
+    <string name="titleSatelliteView">Satellite View</string>
+    <string name="summarySatelliteView">Turn satellite View on/off</string>
+    <string name="summaryOnSatelliteView">Like Google Earth</string>
+    <string name="summaryOffSatelliteView">Like Google Maps</string>
+    <string name="summaryCompass">Turns Compass On/Off</string>
+    <string name="titleCompass">Compass</string>
+    <string name="titleKML">Cancel Route</string>
+    <string name="titleLocation">Goto Current Location</string>
+    <string name="newPointName">Point Name</string>
+    <string name="newPointDesc">Point Description</string>
+    <string name="titleListPoints">Points List</string>
+    <string name="searchFavoritesHint">Search Favorites</string>
+    <string name="searchBusStopsHint">Search Bus Stops</string>
+    <string name="busStopSearch">BusStop</string>
+    <string name="favoritesSearch">Favorites</string>
+    <string name="titleInfo">View Route Info</string>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, SendPointActivity!</string>
+    <string name="app_name">SendPoint</string>
+    <string name="latTitle">Latitude</string>
+    <string name="lonTitle">Longitude</string>
+    <string name="prefsTitle">Preferences</string>
+
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:key="streetView"
+        android:summary="@string/summaryStreetView"
+        android:title="@string/titleStreetView" />
+    <CheckBoxPreference
+        android:key="satelliteView"
+        android:summary="@string/summarySatelliteView"
+        android:summaryOff="@string/summaryOffSatelliteView"
+        android:summaryOn="@string/summaryOnSatelliteView"
+        android:title="@string/titleSatelliteView" />
+
+</PreferenceScreen>
