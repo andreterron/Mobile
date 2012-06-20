@@ -91,6 +91,7 @@ public class BusFinderActivity extends MapActivity implements
 	AutoCompleteTextView acTextView;
 	boolean isFavorite = true;
 
+	//teste
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
