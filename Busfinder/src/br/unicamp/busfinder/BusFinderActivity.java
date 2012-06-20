@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,12 +17,14 @@ import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,6 +32,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -205,22 +211,82 @@ public class BusFinderActivity extends MapActivity implements
 		routeButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				Log.d("ROUTE", "CLICKED");
-				final CharSequence[] items = { "Circular 1", "Circular 2",
-						"Nenhuma" };
+		    	Log.d("ROUTE", "CLICKED");
+		    	final CharSequence[] items = {"Circular 1", "Circular 2", "Nenhuma"};
+		    	final Context c = v.getContext();
+		    	
+		    	
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(v
-						.getContext());
+				AlertDialog.Builder builder = new AlertDialog.Builder(c);
 				builder.setTitle("Escolha a rota");
 				builder.setItems(items, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int item) {
-						Log.d("ROUTE", "CHOOSEN");
-						CharSequence[][] vias = { { "" },
-								{ "", "FEC", "Museu" }, {} };
+				    public void onClick(DialogInterface dialog, int item) {
+				    	Log.d("ROUTE", "CHOOSEN");
+						CharSequence[][] vias = {{""}, {"", "FEC", "Museu"}, {}};
+						final int pathLine = item;
+						
+						if (vias[item].length > 1) {
+							AlertDialog.Builder builder = new AlertDialog.Builder(c);
+							builder.setTitle("Escolha a via");
+							builder.setItems(items, new DialogInterface.OnClickListener() {
+							    public void onClick(DialogInterface dialog, int item) {
+							    	try {
+								    	Log.d("ROUTE", "CHOOSEN VIA");
+		
+										String site = String
+												.format(BusFinderActivity.SERVER
+														+ "getBusPath?line=%d&via=%d",
+														(int) pathLine,
+														(int) item);
+										JSONArray sitePoints = ServerOperations.getJSON(site);
+										GeoPoint[] points = new GeoPoint[sitePoints.length()];
+										for (int i = 0; i < sitePoints.length(); i++) {
+											points[i] = ServerOperations.geoFromJSON(sitePoints.getJSONObject(i), "lat", "lon", "name");
+											
+										}
+										TouchOverlay.DrawPathList(points, Color.RED, map, true);
 
-						// Toast.makeText(getApplicationContext(), items[item],
-						// Toast.LENGTH_SHORT).show();
-					}
+							    	} catch (JSONException e) {
+										e.printStackTrace();
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+
+									Toast.makeText(c, "Sorry No Path Found or Connection down...",
+											Toast.LENGTH_LONG).show();
+							        //Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
+							    }
+							});
+							AlertDialog alert = builder.create();
+							alert.show();
+						}
+						else
+						{
+							try {
+								String site = String
+										.format(BusFinderActivity.SERVER
+												+ "getBusPath?line=%d&via=%d",
+												(int) pathLine,
+												(int) 0);
+								JSONArray sitePoints = ServerOperations.getJSON(site);
+								GeoPoint[] points = new GeoPoint[sitePoints.length()];
+								for (int i = 0; i < sitePoints.length(); i++) {
+									points[i] = ServerOperations.geoFromJSON(sitePoints.getJSONObject(i), "lat", "lon", "name");
+								}
+								TouchOverlay.DrawPathList(points, Color.RED, map, true);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							} catch (Exception e) {
+								e.printStackTrace();
+							} catch (Error e) {
+								e.printStackTrace();
+							}
+
+							Toast.makeText(c, "Sorry No Path Found or Connection down...",
+									Toast.LENGTH_LONG).show();
+						}
+				        //Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
+				    }
 				});
 				AlertDialog alert = builder.create();
 				alert.show();

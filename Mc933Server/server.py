@@ -407,6 +407,8 @@ class Resource(object):
                            'source': p_source['sid'],
                            'dest': p_dest['sid'],
                            'circular': ret['dest']['circular'],
+                           'line': ret['line'],
+                           'via': ret['via'],
                            'dist_source': p_source['dist'],
                            'dist_dest': p_dest['dist'],
                            'final_time': ftime,
@@ -446,7 +448,9 @@ class Resource(object):
                     if(etime<stime):
                         return {
                                 'source':busS,
-                                'dest':busD
+                                'dest':busD,
+                                'line': busS['line'],
+                                'via': busS['via']
                                 }
            
             
@@ -527,7 +531,7 @@ class Resource(object):
                 #if (m*(t - time) < (t - t)):
                 #    t = t.replace(day = t.day + m)
                 bline = fname[1]
-                bvia = self.getLineVia(self.getLineInfo(bline)['name'], dados[i][1])
+                bvia = self.getLineVia(self.getLineInfo(bline)['name'], dados[i][1])['via']
                 if (m * (t - time) > (t - t)):
                     buses.append([abs(t - time), t, bline, bvia, i - 2])
         buses.sort()

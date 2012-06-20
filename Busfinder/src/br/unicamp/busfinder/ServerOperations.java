@@ -4,8 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -16,6 +21,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -150,10 +157,28 @@ public class ServerOperations {
 
 			TouchOverlay.DrawPath(destPoint, touchedpoint, Color.BLUE, map,
 					false);
-
+			
+			/* EDIT HERE */
+			String site = String
+					.format(BusFinderActivity.SERVER
+							+ "getBusPath?line=%d&via=%d&start=%d&end=%d",
+							(int) Integer.parseInt(obj.getString("line")),
+							(int) Integer.parseInt(obj.getString("via")),
+							(int) Integer.parseInt(obj.getString("source")),
+							(int) Integer.parseInt(obj.getString("dest")));
+			JSONArray sitePoints = getJSON(site);
+			GeoPoint[] points = new GeoPoint[sitePoints.length()];
+			for (int i = 0; i < sitePoints.length(); i++) {
+				points[i] = ServerOperations.geoFromJSON(sitePoints.getJSONObject(i), "lat", "lon", "name");
+			}
+			TouchOverlay.DrawPathList(points, Color.RED, map, false);
+			Log.d("xxx", "URL=" + site.toString());
+			// get the kml (XML) doc. And parse it to get the coordinates(direction
+			// route).
+			/* END EDIT
 			PathOverlay pO = new PathOverlay(sourcePoint, destPoint, 2,
 					Color.RED);
-			TouchOverlay.pathlist.addItem(pO, map);
+			TouchOverlay.pathlist.addItem(pO, map);*/
 
 			String dest_ = jar.getJSONObject(0).getString("name");
 			if (dest_ == null)

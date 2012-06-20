@@ -222,6 +222,48 @@ public class TouchOverlay extends Overlay {
 		map.invalidate();
 		return false;
 	}
+	
+	public static void DrawPathList(GeoPoint[] points, int color, MapView mapView, boolean clear) {
+		if (mapView == null)
+			mapView = BusFinderActivity.map;
+
+		if (clear){
+			if(BusFinderActivity.timer!=null)
+				BusFinderActivity.timer.cancel();				
+			BusFinderActivity.dialog=null;
+			pathlist.clearPath(mapView);
+		}
+		
+		PathOverlay pO;
+		GeoPoint p = points[0];
+		pO = new PathOverlay(p, p, 1);
+		// mapView.getOverlays().add(pO);
+		pathlist.addItem(pO, mapView);
+
+		GeoPoint gp1;
+		GeoPoint gp2 = p;
+		for (int i = 1; i < points.length; i++) // the last one would be
+												// crash
+		{
+			if (points[i] == null) {
+				continue;
+			}
+			gp1 = gp2;
+			// watch out! For GeoPoint, first:latitude, second:longitude
+			gp2 = points[i];
+
+			pO = new PathOverlay(gp1, gp2, 2, color);
+			pathlist.addItem(pO, mapView);
+			Log.d("xxx", "pair:" + points[i]);
+		}
+		p = points[points.length - 1];
+		pO = new PathOverlay(p, p, 3);
+		// mapView.getOverlays().add(pO);
+		pathlist.addItem(pO, mapView);
+		// mapView.getOverlays().add(pathlist);
+		mapView.invalidate();
+		
+	}
 
 	public static void DrawPath(GeoPoint src, GeoPoint dest, int color,
 			MapView mapView, boolean clear) {
