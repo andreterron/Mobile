@@ -6,9 +6,15 @@ import simplejson as json
 from restful_lib import Connection
 #conn = Connection("http://mc933.lab.ic.unicamp.br:8010")
 while 1:
-    conn = Connection("http://mc933.lab.ic.unicamp.br:8010/getBusesPositions")
+    #mc933.lab.ic.unicamp.br
     #response = conn.request_get("/getPosition")
-    response = conn.request_get("")
+    try:
+        conn = Connection("http://mc933.lab.ic.unicamp.br/getBusesPositions")
+        response = conn.request_get("")
+    except:
+        print "Connection failed: waiting 10 seconds"
+        time.sleep(10)
+        continue
     
     buses = json.loads(response["body"])
     try:

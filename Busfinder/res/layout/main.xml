@@ -26,13 +26,57 @@
 
     </LinearLayout>
 
-    <com.google.android.maps.MapView
-        android:id="@+id/map"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:apiKey="0qhG1eQdB5DCpPMr-uTO728vwVngjS0wx9UFciQ"
-        android:clickable="true"
-        android:state_enabled="true" />
+        android:orientation="vertical" >
+
+        <com.google.android.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="32"
+            android:apiKey="0qhG1eQdB5DCpPMr-uTO728vwVngjS0wx9UFciQ"
+            android:clickable="true"
+            android:state_enabled="true" >
+
+        </com.google.android.maps.MapView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="---" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0:00"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Rotas" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 <!--         android:apiKey="0qhG1eQdB5DCpPMr-uTO728vwVngjS0wx9UFciQ"   09rK1BD0tW6khWZYd7BmrAJIVjFiOZg50g_6C4w   0LloyheZs6Qmc56pd7QvJHVJ1mhExKhDk6Bn-yg
 0ofzPzNJNOP2gV35-1RPbZLP8zdNYPSDmLVcg8Q-->
 

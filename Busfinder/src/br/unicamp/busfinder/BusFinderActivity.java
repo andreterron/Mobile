@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -45,6 +46,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -79,6 +81,7 @@ public class BusFinderActivity extends MapActivity implements
 	Drawable d;
 
 	static BusPoints busPoints;
+	static ListPoints busPositions;
 	static FavoritePoints favorites;
 	public static AlertDialog dialog;
 	public static CountDownTimer timer;
@@ -89,6 +92,7 @@ public class BusFinderActivity extends MapActivity implements
 	private SharedPreferences prefs;
 	ImageButton button;
 	AutoCompleteTextView acTextView;
+	Button routeButton;
 	boolean isFavorite = true;
 	static Handler handler;
 
@@ -119,6 +123,9 @@ public class BusFinderActivity extends MapActivity implements
 		map.setStreetView(false);
 		
 		handler = new Handler();
+
+		busPositions = new ListPoints(getResources()
+				.getDrawable(R.drawable.bus), this);
 
 		busPoints = new BusPoints(getResources()
 				.getDrawable(R.drawable.busstop), this);
@@ -188,6 +195,30 @@ public class BusFinderActivity extends MapActivity implements
 
 			}
 		});
+		
+		routeButton = (Button) findViewById(R.id.button1);
+		routeButton.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+		    	Log.d("ROUTE", "CLICKED");
+		    	final CharSequence[] items = {"Circular 1", "Circular 2", "Nenhuma"};
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+				builder.setTitle("Escolha a rota");
+				builder.setItems(items, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	Log.d("ROUTE", "CHOOSEN");
+						CharSequence[][] vias = {{""}, {"", "FEC", "Museu"}, {}};
+						
+				        //Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+				
+			}
+		});
+		
 		this.getCurrentFocus();
 		acTextView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {

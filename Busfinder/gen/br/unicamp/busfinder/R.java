@@ -11,24 +11,28 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int busstop=0x7f020000;
-        public static final int favbus=0x7f020001;
-        public static final int favorites=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int map_pin=0x7f020004;
-        public static final int mapa_pin=0x7f020005;
-        public static final int popup_frame=0x7f020006;
-        public static final int realbus=0x7f020007;
-        public static final int user=0x7f020008;
+        public static final int bus=0x7f020000;
+        public static final int busstop=0x7f020001;
+        public static final int favbus=0x7f020002;
+        public static final int favorites=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int map_pin=0x7f020005;
+        public static final int mapa_pin=0x7f020006;
+        public static final int popup_frame=0x7f020007;
+        public static final int realbus=0x7f020008;
+        public static final int user=0x7f020009;
     }
     public static final class id {
+        public static final int button1=0x7f070005;
         public static final int fav_search=0x7f070000;
         public static final int imageButton1=0x7f070001;
-        public static final int itemInfo=0x7f070006;
-        public static final int itemKML=0x7f070004;
-        public static final int itemLocation=0x7f070005;
-        public static final int itemPrefs=0x7f070003;
+        public static final int itemInfo=0x7f070009;
+        public static final int itemKML=0x7f070007;
+        public static final int itemLocation=0x7f070008;
+        public static final int itemPrefs=0x7f070006;
         public static final int map=0x7f070002;
+        public static final int textView1=0x7f070003;
+        public static final int textView2=0x7f070004;
     }
     public static final class layout {
         public static final int main=0x7f030000;
