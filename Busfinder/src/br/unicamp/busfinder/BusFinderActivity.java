@@ -232,7 +232,8 @@ public class BusFinderActivity extends MapActivity implements
 		// This schedule a runnable task every 2 minutes
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 		  public void run() {
-				ServerOperations.updateBusPositions(getApplicationContext(), map);		      
+				ServerOperations.updateBusPositions(getApplicationContext(), map);	
+				map.invalidate();
 		  }
 		}, 0, 60, TimeUnit.SECONDS);
 
